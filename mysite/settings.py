@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'phonemanage.apps.phonemanageConfig',
+    'phonemanage.apps.PhonemanageConfig',
 ]
 
 MIDDLEWARE = [
@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        "OPTIONS": {
-             "read_default_file": "/home/pnh/Desktop/my.cnf",
-        }
+        'OPTIONS': {
+             'read_default_file': '/home/pnh/Desktop/my.cnf',
+        },
     }
 }
 
