@@ -32,5 +32,6 @@ def user_logout(request):
 def dashboard(request):
     return render(request, "dashboard/index.html")
 
-def tables(request):
-    return render(request, "dashboard/index.html")
+    
+def listcontact(request):
+    return render(request, "list_contact/listcontact.html")

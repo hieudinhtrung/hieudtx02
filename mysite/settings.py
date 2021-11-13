@@ -78,7 +78,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
+<<<<<<< HEAD
              'read_default_file': '/home/pnh/my.cnf',
+=======
+             'read_default_file': '/home/dell/Desktop/my.cnf',
+>>>>>>> List_contact
         },
     }
 }
