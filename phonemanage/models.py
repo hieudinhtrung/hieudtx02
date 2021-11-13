@@ -70,3 +70,15 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class PhoneInfo(models.Model):
+    fullname = models.CharField(max_length=100)
+    email = models.EmailField()
+    department = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20)
+    code = models.CharField(max_length=10)
+    date_of_birth = models.DateField()
+    identity = models.CharField(max_length=20)
+
+

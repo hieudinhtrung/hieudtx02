@@ -31,3 +31,6 @@ def user_logout(request):
 @login_required
 def dashboard(request):
     return render(request, "dashboard/index.html")
+
+def tables(request):
+    return render(request, "dashboard/index.html")
