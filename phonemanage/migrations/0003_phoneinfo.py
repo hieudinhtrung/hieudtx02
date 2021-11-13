@@ -6,12 +6,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('phonemanage', '0002_auto_20211106_0915'),
+        ('phonemanage', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PhoneInfo',
+            name='phonenumber',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('fullname', models.CharField(max_length=100)),
