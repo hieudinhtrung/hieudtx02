@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -39,3 +39,19 @@ def dashboard(request):
 def listcontact(request, method="GET"):
     phonenumber=PhoneInfo.objects.all
     return render(request, "list_contact/listcontact.html", {"phonenumber": phonenumber})
+
+def create_contact (request):
+    if request.method == "GET":
+        return render(request,"list_contact/create_contact.html")
+    elif request.method == "POST":
+        data = request.POST
+        name = data.get("hovaten","")
+        position = data.get("chucdanh","")
+        department = data.get("tenphongban","")
+        phonenumber = data.get("sodienthoai","")
+        email = data.get("Email","")
+        phonenumber=PhoneInfo(fullname=name,email=email,department=department,position=position,phone_number= phonenumber)
+        phonenumber.save()
+    
+        return redirect('listcontact')
+       
