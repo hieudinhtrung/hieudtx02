@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
+from .models import PhoneInfo
+
+
 def user_login(request, method="POST"):
     if request.method == "POST":
         email = request.POST.get("email", "")
@@ -32,5 +35,7 @@ def user_logout(request):
 def dashboard(request):
     return render(request, "dashboard/index.html")
 
-def tables(request):
-    return render(request, "dashboard/index.html")
+    
+def listcontact(request, method="GET"):
+    phonenumber=PhoneInfo.objects.all
+    return render(request, "list_contact/listcontact.html", {"phonenumber": phonenumber})
