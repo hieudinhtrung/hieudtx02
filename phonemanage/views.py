@@ -59,14 +59,14 @@ def edit_contact(request, pk):
     
     if request.method == "POST":
         data = request.POST
-        contact.name = data.get("hovaten","")
+        contact.fullname = data.get("hovaten","")
         contact.position = data.get("chucdanh","")
         contact.department = data.get("tenphongban","")
-        contact.phonenumber = data.get("sodienthoai","")
+        contact.phone_number = data.get("sodienthoai","")
         contact.email = data.get("Email","")
         contact.save()
 
-        messages.success(request, "Create contact successful")
+   
         return redirect('listcontact')
     # else:
         # print(model_to_dict(contact))
@@ -77,6 +77,7 @@ def edit_contact(request, pk):
 
 def delete_contact(request, pk):
     contact = get_object_or_404(PhoneInfo,pk=pk)
+    
     # if request.method == "POST":
     #     data = request.POST
     #     contact.name = data.get("hovaten","")

@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content_dashboard %}
-<form method="POST" action="{% url 'create_contact' %}"
+<form method="POST" action="{% url 'edit_contact' pk=contact.id %}"
 class="needs-validation" novalidate>
     {% csrf_token %}
     <div class="form-row">
