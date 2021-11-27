@@ -1,0 +1,82 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block extend_css %} 
+
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content_dashboard %}
+<form method="POST" action="{% url 'create_contact' %}"
+class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="validationTooltip01">Họ và tên</label>
+        <input type="text" class="form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" value="{{contact.fullname}}" required>
+        <div class="valid-tooltip">
+          
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationTooltip02">Chức danh</label>
+        <input type="text" class="form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" value="{{contact.position}}" required>
+        <div class="valid-tooltip">
+         
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="validationTooltipUsername">Tên phòng ban</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+          </div>
+          <input type="text" class="form-control" id="validationTooltipUsername" value="{{contact.department}}" name= "tenphongban" placeholder="department" aria-describedby="validationTooltipUsernamePrepend" required>
+          <div class="invalid-tooltip">
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="validationTooltip03">Số điện thoại</label>
+        <input type="text" class="form-control" id="validationTooltip03"  value="{{contact.phone_number}}" name= "sodienthoai" placeholder="Phone number" required>
+        <div class="invalid-tooltip">
+                  
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationTooltip04">Email</label>
+        <input type="text" class="form-control" id="validationTooltip04" name= "Email" value="{{contact.email}}" placeholder="Email" required>
+        <div class="invalid-tooltip">
+         
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+  {% endblock %}
+{% load static %}
+{% block extend_js %} 
+<script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+{% endblock %}
+
+
+
+
+
+

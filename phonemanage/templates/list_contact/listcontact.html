@@ -56,13 +56,31 @@
                 <tbody>
                {% for PhoneInfo in phonenumber %}
                     <tr>
-                        <td>{{PhoneInfo.id}}</td>
+                        <td>{{forloop.counter}}</td>
                         <td>{{PhoneInfo.department}}</td>
                         <td>{{PhoneInfo.fullname}}</td>
                         <td>{{PhoneInfo.position}}</td>
                         <td>{{PhoneInfo.phone_number}}</td>
                         <td>{{PhoneInfo.email}}</td>
-                        <td>{{PhoneInfo.code}}</td>
+                        <td>
+                            <a href="{% url 'edit_contact' pk=PhoneInfo.id %}">
+                                <i class="far fa-edit" title="Edit"></i>
+                            </a>
+                            <a href="">
+                                <i class="far fa-eye" title="Show"></i>
+                            </a>
+                            <a href="{% url 'delete_contact' pk=PhoneInfo.id %}">
+                                <i onclick="myFunction()" class="far fa-trash-alt" title="Delete"></i>
+
+                                <!-- <button onclick="myFunction()">SUBMIT</button> -->
+
+                                <script>
+                                    function myFunction() {
+                                    confirm("Bạn có chắc không!");
+                                    }
+                                </script>
+                            </a>
+                        </td>
                     </tr>
                     {% empty %}
                         <tr>No phone entries</tr>
