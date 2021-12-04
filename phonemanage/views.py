@@ -45,6 +45,8 @@ def create_contact (request):
         return render(request,"list_contact/create_contact.html")
     elif request.method == "POST":
         data = request.POST
+        print("============================")
+        print(data)
         name = data.get("hovaten","")
         position = data.get("chucdanh","")
         department = data.get("tenphongban","")
