@@ -16,56 +16,39 @@
 {% endblock %}
 
 {% block content_dashboard %}
-<form method="POST" action="{% url 'create_contact' %}"
-class="needs-validation" novalidate>
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltip01">Họ và tên</label>
-        <input type="text" class="form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" value="Đinh Trung Hiếu " required>
-        <div class="valid-tooltip">
-          Eg. your name here!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltip02">Chức danh</label>
-        <input type="text" class="form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" value="KSPT" required>
-        <div class="valid-tooltip">
-          Please choose!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltipUsername">Tên phòng ban</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Them danh bạ điện thoại</h6>
+   
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{% url 'create_contact' %}"
+    class="needs-validation" novalidate>
+        {% csrf_token %}
+          <div class="form-group row">
+            <label for="validationTooltip01" class="col-sm-2 col-form-label">Họ và tên</label>
+            <input type="text" class="col-sm-10 form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" required>
           </div>
-          <input type="text" class="form-control" id="validationTooltipUsername" name= "tenphongban" placeholder="department" aria-describedby="validationTooltipUsernamePrepend" required>
-          <div class="invalid-tooltip">
-            Please choose department.
+          <div class="form-group row">
+            <label for="validationTooltip02" class="col-sm-2 col-form-label">Chức danh</label>
+            <input type="text" class="col-sm-10 form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" required>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationTooltip03">Số điện thoại</label>
-        <input type="text" class="form-control" id="validationTooltip03" name= "sodienthoai" placeholder="Phone number" required>
-        <div class="invalid-tooltip">
-          Please enter number.
-          
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationTooltip04">Email</label>
-        <input type="text" class="form-control" id="validationTooltip04" name= "Email"  placeholder="Email" required>
-        <div class="invalid-tooltip">
-          Please provide email.
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </form>
+          <div class="form-group row">
+            <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên phòng ban</label>
+            <input type="text" class="col-sm-10 form-control" id="validationTooltipUsername" name= "tenphongban" placeholder="department"  required>
+          </div>
+          <div class="form-group row">
+            <label for="validationTooltip03" class="col-sm-2 col-form-label">Số điện thoại</label>
+            <input type="number" class="col-sm-10 form-control" id="validationTooltip03" name= "sodienthoai" placeholder="Phone number" required>
+          </div>
+          <div class="form-group row">
+            <label for="validationTooltip04" class="col-sm-2 col-form-label">Email</label>
+            <input type="email" class="col-sm-10 form-control" id="validationTooltip04" name= "Email"  placeholder="Email" required>
+          </div>
+        <button class="btn btn-primary" type="submit">Them moi</button>
+    </form>
+  </div>
+</div>
 
   {% endblock %}
 {% load static %}

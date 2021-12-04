@@ -19,6 +19,13 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh bạ điện thoại</h6>
+       
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-end mb-4">
+        <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
+        <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Thêm mới</a>
+     
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -66,7 +73,7 @@
                             <a href="{% url 'edit_contact' pk=PhoneInfo.id %}">
                                 <i class="far fa-edit" title="Edit"></i>
                             </a>
-                            <a href="">
+                            <a href="{% url 'show_contact' pk=PhoneInfo.id %}">
                                 <i class="far fa-eye" title="Show"></i>
                             </a>
                             <a href="{% url 'delete_contact' pk=PhoneInfo.id %}">
