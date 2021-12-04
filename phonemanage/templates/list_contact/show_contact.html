@@ -18,7 +18,7 @@
 {% block content_dashboard %}
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Sua danh bạ điện thoại</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết liên lạc</h6>
   
   </div>
   <div class="card-body">
@@ -27,23 +27,23 @@
         {% csrf_token %}
           <div class="form-group row">
             <label for="validationTooltip01" class="col-sm-2 col-form-label">Họ và tên</label>
-            <input type="text" class="col-sm-10 form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" value="{{contact.fullname}}" disabled>
+            <input type="text" class="col-sm-10 form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" value="{{contact.fullname}}" disabled="disabled">
           </div>
           <div class="form-group row">
             <label for="validationTooltip02" class="col-sm-2 col-form-label">Chức danh</label>
-            <input type="text" class="col-sm-10 form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" value="{{contact.position}}" disabled>
+            <input type="text" class="col-sm-10 form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" value="{{contact.position}}" disabled="disabled">
           </div>
           <div class="form-group row">
             <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên phòng ban</label>
-            <input type="text" class="col-sm-10 form-control" id="validationTooltipUsername" value="{{contact.department}}" name= "tenphongban" placeholder="Your department" disabled>
+            <input type="text" class="col-sm-10 form-control" id="validationTooltipUsername" value="{{contact.department}}" name= "tenphongban" placeholder="Your department" disabled="disabled">
           </div>     
           <div class="form-group row">
             <label for="validationTooltip03" class="col-sm-2 col-form-label">Số điện thoại</label>
-            <input type="number" class="col-sm-10 form-control" id="validationTooltip03"  value="{{contact.phone_number}}" name= "sodienthoai" placeholder="Your phone number" disabled>
+            <input type="number" class="col-sm-10 form-control" id="validationTooltip03"  value="{{contact.phone_number}}" name= "sodienthoai" placeholder="Your phone number" disabled="disabled">
           </div>
           <div class="form-group row">
             <label for="validationTooltip04" class="col-sm-2 col-form-label">Email</label>
-            <input type="email" class="col-sm-10 form-control" id="validationTooltip04" name= "Email" value="{{contact.email}}" placeholder="Your email" disabled>
+            <input type="email" class="col-sm-10 form-control" id="validationTooltip04" name= "Email" value="{{contact.email}}" placeholder="Your email" disabled="disabled">
           </div>
 
     </form>
