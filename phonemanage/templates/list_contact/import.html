@@ -1,0 +1,65 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block extend_css %} 
+
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content_dashboard %}
+
+<form action='{% url "import_contact" %}' method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file"
+        title="Upload excel file"
+        name="excel_file"
+        style="border: 1px solid black; padding: 5px;"
+        required="required">
+    <p>
+    <input type="submit"
+        value="Upload"
+        style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+</form>
+
+<p></p>
+<hr>
+
+{% for row in excel_data %}
+    {% for cell in row %}
+        {{ cell }}&nbsp;&nbsp;
+    {% endfor %}
+    <br>
+{% endfor %}
+
+
+
+
+
+
+{% endblock %}
+
+
+{% load static %}
+{% block extend_js %} 
+<script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

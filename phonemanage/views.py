@@ -5,6 +5,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from .models import PhoneInfo
+from django.shortcuts import render
+import openpyxl
 
 
 def user_login(request, method="POST"):
@@ -77,6 +79,11 @@ def edit_contact(request, pk):
     context = {"contact": model_to_dict(contact)}
     return render(request, "list_contact/edit_contact.html", context=context)
 
+def show_contact(request, pk):
+    contact = get_object_or_404(PhoneInfo, pk=pk)
+    context = {"contact": contact}
+    return render(request, "list_contact/show_contact.html", context=context)
+
 def delete_contact(request, pk):
     contact = get_object_or_404(PhoneInfo,pk=pk)
     
@@ -93,3 +100,29 @@ def delete_contact(request, pk):
     messages.success(request, "Delete contact successful")
   
     return redirect('listcontact')
+
+
+def impo(request):
+    if "GET" == request.method:
+        return render(request, 'list_contact/import.html', {})
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+        print(worksheet)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+
+        return render(request, "list_contact/show_contact.html", {"excel_data":excel_data})
