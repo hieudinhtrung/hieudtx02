@@ -17,28 +17,55 @@
 
 {% block content_dashboard %}
 
-<form action='{% url "import_contact" %}' method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file"
-        title="Upload excel file"
-        name="excel_file"
-        style="border: 1px solid black; padding: 5px;"
-        required="required">
-    <p>
-    <input type="submit"
-        value="Upload"
-        style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
-</form>
-
-<p></p>
-<hr>
-
-{% for row in excel_data %}
-    {% for cell in row %}
-        {{ cell }}&nbsp;&nbsp;
-    {% endfor %}
-    <br>
+<div class="card shadow mb-4">
+    <form action='{% url "import_contact" %}' method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file"
+            title="Upload excel file"
+            name="excel_file"
+            style="border: 1px solid black; padding: 5px;"
+            required="required">
+        <p>
+        <input type="submit"
+            value="Upload"
+            style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+    </form>
+<!-- {% for row in excel_data %}
+{% for cell in row %}
+    {{ cell }}&nbsp;&nbsp;
 {% endfor %}
+
+{% endfor %} -->
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên phòng ban</th>
+                        <th>Họ và tên</th>
+                        <th>Chức danh</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for row in excel_data %}
+                    <tr>
+
+                        {% for cell in row %}
+                        <td>{{cell}}</td>
+                    {% endfor %}
+                    </tr>
+                    {% empty %}
+                   
+            {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 
@@ -55,11 +82,6 @@
 <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 
 {% endblock %}
-
-
-
-
-
 
 
 

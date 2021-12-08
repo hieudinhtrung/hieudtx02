@@ -11,5 +11,5 @@ urlpatterns = [
      path('edit_contact/<int:pk>', views.edit_contact, name="edit_contact"),
      path('delete_contact/<int:pk>', views.delete_contact, name="delete_contact"),
      path('show_contact/<int:pk>', views.show_contact, name="show_contact"),
-     path('importexcel_contact/', views.impo, name="import_contact")
+     path('import_contact/', views.impo, name="import_contact")
 ]
