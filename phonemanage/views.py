@@ -125,4 +125,4 @@ def impo(request):
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
 
-        return render(request, "list_contact/show_contact.html", {"excel_data":excel_data})
+        return render(request, "list_contact/import.html", {"excel_data":excel_data})
