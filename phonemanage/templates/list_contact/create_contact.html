@@ -25,9 +25,17 @@
     <form method="POST" action="{% url 'create_contact' %}"
     class="needs-validation" novalidate>
         {% csrf_token %}
+        <div class="form-group row">
+          <label for="validationTooltip01" class="col-sm-2 col-form-label">Ma nhan su</label>
+          <input type="text" class="col-sm-10 form-control" name= "manhansu" id="validationTooltip01" placeholder="ID Employer" required>
+        </div>
           <div class="form-group row">
             <label for="validationTooltip01" class="col-sm-2 col-form-label">Họ và tên</label>
             <input type="text" class="col-sm-10 form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" required>
+          </div>
+          <div class="form-group row">
+            <label for="validationTooltip01" class="col-sm-2 col-form-label">Ngay thang nam sinh</label>
+            <input type="text" class="col-sm-10 form-control" name= "ngaysinh" id="validationTooltip01" placeholder="Date of birth" required>
           </div>
           <div class="form-group row">
             <label for="validationTooltip02" class="col-sm-2 col-form-label">Chức danh</label>
@@ -35,7 +43,7 @@
           </div>
           <div class="form-group row">
             <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên phòng ban</label>
-            <input type="text" class="col-sm-10 form-control" id="validationTooltipUsername" name= "tenphongban" placeholder="department"  required>
+            <input type="text" class="col-sm-10 form-control" id="validationTooltipUsername" name= "tenphongban" placeholder="Department"  required>
           </div>
           <div class="form-group row">
             <label for="validationTooltip03" class="col-sm-2 col-form-label">Số điện thoại</label>
