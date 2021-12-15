@@ -50,11 +50,13 @@ def create_contact (request):
         print("============================")
         print(data)
         name = data.get("hovaten","")
+        identity = data.get("manhansu","")
+        dateofbirth = data.get("ngaysinh","")
         position = data.get("chucdanh","")
         department = data.get("tenphongban","")
         phonenumber = data.get("sodienthoai","")
         email = data.get("Email","")
-        phonenumber=PhoneInfo(fullname=name,email=email,department=department,position=position,phone_number= phonenumber)
+        phonenumber=PhoneInfo(fullname=name,identity=identity, date_of_birth=dateofbirth,email=email,department=department,position=position,phone_number= phonenumber)
         phonenumber.save()
         return redirect('listcontact')
         
@@ -64,6 +66,8 @@ def edit_contact(request, pk):
     if request.method == "POST":
         data = request.POST
         contact.fullname = data.get("hovaten","")
+        contact.identity = data.get("manhansu","")
+        contact.dateofbirth = data.get("ngaysinh","")
         contact.position = data.get("chucdanh","")
         contact.department = data.get("tenphongban","")
         contact.phone_number = data.get("sodienthoai","")
@@ -124,5 +128,19 @@ def impo(request):
             for cell in row:
                 row_data.append(str(cell.value))
             excel_data.append(row_data)
+
+        list_headers = excel_data[0]
+        index_headers = { j: i for i, j in enumerate(list_headers)}
+        for item in excel_data[1:]:
+            department = item[index_headers['Department']]
+            fullname = item[index_headers['Fullname']]
+            dateofbirth = item[index_headers['Dateofbirth']]
+            identity = item[index_headers['Identity']]
+            email= item[index_headers['Email']]
+            position= item[index_headers['Position']]
+            phone_number=item[index_headers['Phonenumber']]
+
+            phonenumber=PhoneInfo(fullname=fullname,identity=identity, date_of_birth=dateofbirth,email=email,department=department,position=position,phone_number= phone_number)
+            phonenumber.save()
 
         return render(request, "list_contact/import.html", {"excel_data":excel_data})

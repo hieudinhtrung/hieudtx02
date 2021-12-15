@@ -35,9 +35,11 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên phòng ban</th>
+                        <th>Mã nhân sự</th>
                         <th>Họ và tên</th>
+                        <th>Ngày tháng năm sinh</th>
                         <th>Chức danh</th>
+                        <th>Phòng ban</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Thao tác</th>
@@ -66,9 +68,11 @@
                {% for PhoneInfo in phonenumber %}
                     <tr>
                         <td>{{forloop.counter}}</td>
-                        <td>{{PhoneInfo.department}}</td>
+                        <td>{{PhoneInfo.identity}}</td>
                         <td>{{PhoneInfo.fullname}}</td>
+                        <td>{{PhoneInfo.date_of_birth}}</td>
                         <td>{{PhoneInfo.position}}</td>
+                        <td>{{PhoneInfo.department}}</td>
                         <td>{{PhoneInfo.phone_number}}</td>
                         <td>{{PhoneInfo.email}}</td>
                         <td>
