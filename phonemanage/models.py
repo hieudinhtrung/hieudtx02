@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
+    BaseUserManager, AbstractBaseUser, PermissionsMixin,
 )
 
 
@@ -36,7 +36,7 @@ class MyUserManager(BaseUserManager):
         return user
 
 
-class MyUser(AbstractBaseUser):
+class MyUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -80,5 +80,9 @@ class PhoneInfo(models.Model):
     code = models.CharField(max_length=10)
     date_of_birth = models.DateField()
     identity = models.CharField(max_length=20)
+
+class DepartmentInfo(models.Model):
+    department = models.CharField(max_length=100)
+
 
 

@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from django.forms.models import model_to_dict
 from .models import PhoneInfo
 from django.shortcuts import render
 import openpyxl
+
+
 
 
 def user_login(request, method="POST"):
@@ -47,8 +49,7 @@ def create_contact (request):
         return render(request,"list_contact/create_contact.html")
     elif request.method == "POST":
         data = request.POST
-        print("============================")
-        print(data)
+
         name = data.get("hovaten","")
         identity = data.get("manhansu","")
         dateofbirth = data.get("ngaysinh","")
