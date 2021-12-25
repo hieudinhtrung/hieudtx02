@@ -18,25 +18,17 @@
 {% block content_dashboard %}
 
 <div class="card shadow mb-4">
-    <form action='{% url "import_contact" %}' method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file"
-            title="Upload excel file"
-            name="excel_file"
-            style="border: 1px solid black; padding: 5px;"
-            required="required">
-        <p>
-        <input type="submit"
-            value="Upload"
-            style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
-    </form>
-<!-- {% for row in excel_data %}
-{% for cell in row %}
-    {{ cell }}&nbsp;&nbsp;
-{% endfor %}
-
-{% endfor %} -->
     <div class="card-body">
+        <form action='{% url "import_contact" %}' method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group row">
+                <input class="col-sm-2 form-control" type="file" id="formFile" title="Upload excel file" name="excel_file" required="required" style="margin-left: 0.6rem;">
+                <div class="form-group col-md-3">
+                    <button class="btn btn-primary" type="submit" value="Upload"><i class="fas fa-upload fa-sm text-white-50"></i> Tải lên</button>
+                </div>
+            </div>
+        </form>
+        <p></p>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -55,10 +47,9 @@
                 <tbody>
             {% for row in excel_data %}
                     <tr>
-
                         {% for cell in row %}
                         <td>{{cell}}</td>
-                    {% endfor %}
+                        {% endfor %}
                     </tr>
                     {% empty %}
                    
@@ -68,11 +59,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 {% endblock %}
 

@@ -18,18 +18,30 @@
 {% block content_dashboard %}
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh bạ điện thoại</h6>
-       
-    </div>
-    <div class="d-sm-flex align-items-center justify-content-end mb-4">
-        <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
-        <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Thêm mới</a>
-        <a href="{% url 'import_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Import</a>
-     
+        <h6 class="m-0 font-weight-bold text-primary">Danh bạ điện thoại</h6>       
     </div>
     <div class="card-body">
+            <div class="d-sm-flex align-items-center justify-content-end mb-4">
+        <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
+        <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right: 85.2rem;">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Thêm mới</a>
+        <a href="{% url 'import_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
+    </div>
+        <form action="{% url 'listcontact' %}">
+            <div class="form-group row">                    
+                    <label for="validationTooltip03" class="col-sm-1 col-form-label">Phòng ban</label>
+                    <select class="col-sm-2 form-control" id="dept" name="dept">
+                        <option value="" selected>Chọn Phòng ban</option>
+                        {% for DepartmentInfo in dept_all %}
+                            <option value="{{DepartmentInfo.id}}">{{DepartmentInfo.dept_name}}</option>
+                        {% endfor %}
+                    </select>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0rem;"><i class="fas fa-search fa-sm text-white-50"></i> Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -45,25 +57,7 @@
                         <th>Thao tác</th>
                     </tr>
                 </thead>
-                <!-- <tfoot>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên phòng ban</th>
-                        <th>Họ và tên</th>
-                        <th>Chức danh</th>
-                        <th>Số điện thoại</th>
-                        <th>Email</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </tfoot> -->
-                <!-- fullname = models.CharField(max_length=100)
-                email = models.EmailField()
-                department = models.CharField(max_length=100)
-                position = models.CharField(max_length=100)
-                phone_number = models.CharField(max_length=20)
-                code = models.CharField(max_length=10)
-                date_of_birth = models.DateField()
-                identity = models.CharField(max_length=20) -->
+
                 <tbody>
                {% for PhoneInfo in phonenumber %}
                     <tr>
@@ -72,7 +66,7 @@
                         <td>{{PhoneInfo.fullname}}</td>
                         <td>{{PhoneInfo.date_of_birth}}</td>
                         <td>{{PhoneInfo.position}}</td>
-                        <td>{{PhoneInfo.department}}</td>
+                        <td>{{PhoneInfo.department_id}}</td>
                         <td>{{PhoneInfo.phone_number}}</td>
                         <td>{{PhoneInfo.email}}</td>
                         <td>

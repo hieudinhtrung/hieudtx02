@@ -4,12 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required,permission_required
 from django.forms.models import model_to_dict
-from .models import PhoneInfo
+from .models import PhoneInfo, DepartmentInfo
 from django.shortcuts import render
 import openpyxl
-
-
-
 
 def user_login(request, method="POST"):
     if request.method == "POST":
@@ -41,47 +38,51 @@ def dashboard(request):
 
     
 def listcontact(request, method="GET"):
-    phonenumber=PhoneInfo.objects.all
-    return render(request, "list_contact/listcontact.html", {"phonenumber": phonenumber})
+    dept_all = DepartmentInfo.objects.all()
+    query_params = request.GET
+    phonenumber = PhoneInfo.objects.all()
+    dept_fil = query_params.get("dept", None)
+    if dept_fil is not None and dept_fil:
+        phonenumber = phonenumber.filter(department_id=dept_fil)
+    
+    return render(request, "list_contact/listcontact.html", {"phonenumber": phonenumber, "dept_all":dept_all})
 
 def create_contact (request):
     if request.method == "GET":
-        return render(request,"list_contact/create_contact.html")
+        dept_all = DepartmentInfo.objects.all()
+        return render(request,"list_contact/create_contact.html", {"dept_all":dept_all})
     elif request.method == "POST":
+       
         data = request.POST
 
         name = data.get("hovaten","")
         identity = data.get("manhansu","")
         dateofbirth = data.get("ngaysinh","")
         position = data.get("chucdanh","")
-        department = data.get("tenphongban","")
+        department = data.get("dept","")
         phonenumber = data.get("sodienthoai","")
         email = data.get("Email","")
-        phonenumber=PhoneInfo(fullname=name,identity=identity, date_of_birth=dateofbirth,email=email,department=department,position=position,phone_number= phonenumber)
+        phonenumber=PhoneInfo(fullname=name,identity=identity, date_of_birth=dateofbirth,department_id=department,email=email,position=position,phone_number= phonenumber)
         phonenumber.save()
         return redirect('listcontact')
         
 def edit_contact(request, pk):
     contact = get_object_or_404(PhoneInfo, pk=pk)
-    
+    dept_all = DepartmentInfo.objects.all()
     if request.method == "POST":
         data = request.POST
         contact.fullname = data.get("hovaten","")
         contact.identity = data.get("manhansu","")
         contact.dateofbirth = data.get("ngaysinh","")
         contact.position = data.get("chucdanh","")
-        contact.department = data.get("tenphongban","")
+        contact.department_id = data.get("dept","")
         contact.phone_number = data.get("sodienthoai","")
         contact.email = data.get("Email","")
         contact.save()
 
-   
         return redirect('listcontact')
-    # else:
-        # print(model_to_dict(contact))
-        # form = create_contact(model_to_dict(contact))
 
-    context = {"contact": model_to_dict(contact)}
+    context = {"contact": model_to_dict(contact), "dept_all":dept_all}
     return render(request, "list_contact/edit_contact.html", context=context)
 
 def show_contact(request, pk):
@@ -133,7 +134,7 @@ def impo(request):
         list_headers = excel_data[0]
         index_headers = { j: i for i, j in enumerate(list_headers)}
         for item in excel_data[1:]:
-            department = item[index_headers['Department']]
+            department_id = item[index_headers['Department']]
             fullname = item[index_headers['Fullname']]
             dateofbirth = item[index_headers['Dateofbirth']]
             identity = item[index_headers['Identity']]
