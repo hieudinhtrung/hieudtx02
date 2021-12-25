@@ -75,7 +75,7 @@ def edit_contact(request, pk):
         contact.identity = data.get("manhansu","")
         contact.dateofbirth = data.get("ngaysinh","")
         contact.position = data.get("chucdanh","")
-        contact.department_id = data.get("dept","")
+        contact.department.dept_name = data.get("dept","")
         contact.phone_number = data.get("sodienthoai","")
         contact.email = data.get("Email","")
         contact.save()
