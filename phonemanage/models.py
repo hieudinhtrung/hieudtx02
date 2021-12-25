@@ -74,7 +74,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 class PhoneInfo(models.Model):
     fullname = models.CharField(max_length=100)
     email = models.EmailField()
-    department = models.CharField(max_length=100)
+    department = models.ForeignKey("DepartmentInfo", on_delete = models.PROTECT)
     position = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
     code = models.CharField(max_length=10)
@@ -82,7 +82,7 @@ class PhoneInfo(models.Model):
     identity = models.CharField(max_length=20)
 
 class DepartmentInfo(models.Model):
-    department = models.CharField(max_length=100)
+    dept_name = models.CharField(max_length=100)
 
 
 
