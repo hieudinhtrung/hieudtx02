@@ -129,7 +129,13 @@ def impo(request):
         list_headers = excel_data[0]
         index_headers = { j: i for i, j in enumerate(list_headers)}
         for item in excel_data[1:]:
-            department_id = item[index_headers['Department']]
+            department_name = item[index_headers['Department']]
+            department = DepartmentInfo.objects.filter(dept_name=department_name).first()
+            department_id = None
+
+            if department is not None:
+                department_id = department.id
+
             fullname = item[index_headers['Fullname']]
             dateofbirth = item[index_headers['Dateofbirth']]
             identity = item[index_headers['Identity']]
@@ -137,7 +143,8 @@ def impo(request):
             position= item[index_headers['Position']]
             phone_number=item[index_headers['Phonenumber']]
 
-            phonenumber=PhoneInfo(fullname=fullname,identity=identity, date_of_birth=dateofbirth,email=email,department=department,position=position,phone_number= phone_number)
+            phonenumber=PhoneInfo(fullname=fullname,identity=identity, date_of_birth=dateofbirth,email=email,
+                department_id=department_id, position=position,phone_number= phone_number)
             phonenumber.save()
 
-        return render(request, "list_contact/import.html", {"excel_data":excel_data})
+        return render(request, "list_contact/import.html", {"excel_data": excel_data[1:]})
