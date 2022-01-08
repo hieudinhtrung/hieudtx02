@@ -36,7 +36,7 @@ def user_logout(request):
 def dashboard(request):
     return render(request, "dashboard/index.html")
 
-    
+
 def listcontact(request, method="GET"):
     dept_all = DepartmentInfo.objects.all()
     query_params = request.GET
@@ -46,6 +46,7 @@ def listcontact(request, method="GET"):
         phonenumber = phonenumber.filter(department_id=dept_fil)
     
     return render(request, "list_contact/listcontact.html", {"phonenumber": phonenumber, "dept_all":dept_all})
+
 
 def create_contact (request):
     if request.method == "GET":
@@ -65,7 +66,8 @@ def create_contact (request):
         phonenumber=PhoneInfo(fullname=name,identity=identity, date_of_birth=dateofbirth,department_id=department,email=email,position=position,phone_number= phonenumber)
         phonenumber.save()
         return redirect('listcontact')
-        
+
+      
 def edit_contact(request, pk):
     contact = get_object_or_404(PhoneInfo, pk=pk)
     dept_all = DepartmentInfo.objects.all()
@@ -85,23 +87,16 @@ def edit_contact(request, pk):
     context = {"contact": model_to_dict(contact), "dept_all":dept_all}
     return render(request, "list_contact/edit_contact.html", context=context)
 
+
 def show_contact(request, pk):
     contact = get_object_or_404(PhoneInfo, pk=pk)
     context = {"contact": contact}
     return render(request, "list_contact/show_contact.html", context=context)
 
+
 def delete_contact(request, pk):
     contact = get_object_or_404(PhoneInfo,pk=pk)
-    
-    # if request.method == "POST":
-    #     data = request.POST
-    #     contact.name = data.get("hovaten","")
-    #     contact.position = data.get("chucdanh","")
-    #     contact.department = data.get("tenphongban","")
-    #     contact.phonenumber = data.get("sodienthoai","")
-    #     contact.email = data.get("Email","")
-    contact.delete()
-       
+    contact.delete()       
 
     messages.success(request, "Delete contact successful")
   
