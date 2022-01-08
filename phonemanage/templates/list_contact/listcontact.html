@@ -59,6 +59,8 @@
                 </thead>
 
                 <tbody>
+                {% if perm.phonemanage.view_phoneinfo %}
+
                {% for PhoneInfo in phonenumber %}
                     <tr>
                         <td>{{forloop.counter}}</td>
