@@ -59,7 +59,7 @@
                 </thead>
 
                 <tbody>
-                {% if perm.phonemanage.view_phoneinfo %}
+
 
                {% for PhoneInfo in phonenumber %}
                     <tr>
@@ -79,7 +79,8 @@
                                 <i class="far fa-eye" title="Show"></i>
                             </a>
                             <a href="{% url 'delete_contact' pk=PhoneInfo.id %}">
-                                <i onclick="myFunction()" class="far fa-trash-alt" title="Delete"></i>
+                                <i onclick="return confirm('Are you sure to delete?')">
+                                <i class="far fa-trash-alt" title="Delete"></i>
 
                                 <!-- <button onclick="myFunction()">SUBMIT</button> -->
 
