@@ -20,14 +20,18 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Danh bạ điện thoại</h6>       
     </div>
+ 
     <div class="card-body">
-            <div class="d-sm-flex align-items-center justify-content-end mb-4">
-        <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
-        <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right: 85.2rem;">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Thêm mới</a>
-        <a href="{% url 'import_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
-    </div>
+        <div class="d-sm-flex align-items-center justify-content-end mb-4">
+            <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
+            {% if perms.phonemanage.can_add_PhoneInfo %}
+            <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right: 85.2rem;">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Thêm mới</a>
+            <a href="{% url 'import_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
+            {% endif %}
+        </div>
+
         <form action="{% url 'listcontact' %}">
             <div class="form-group row">                    
                     <label for="validationTooltip03" class="col-sm-1 col-form-label">Phòng ban</label>
@@ -71,17 +75,20 @@
                         <td>{{PhoneInfo.department.dept_name}}</td>
                         <td>{{PhoneInfo.phone_number}}</td>
                         <td>{{PhoneInfo.email}}</td>
-                        <td>
-                            <a href="{% url 'edit_contact' pk=PhoneInfo.id %}">
-                                <i class="far fa-edit" title="Edit"></i>
-                            </a>
+                        <td>                         
                             <a href="{% url 'show_contact' pk=PhoneInfo.id %}">
                                 <i class="far fa-eye" title="Show"></i>
                             </a>
+                            {% if perms.phonemanage.can_change_PhoneInfo %}
+                            <a href="{% url 'edit_contact' pk=PhoneInfo.id %}">
+                                <i class="far fa-edit" title="Edit"></i>
+                            </a>
+                            {% endif %}
+                            {% if perms.phonemanage.can_delete_PhoneInfo %}
                             <a href="{% url 'delete_contact' pk=PhoneInfo.id %}">
                                 <i onclick="return confirm('Are you sure to delete?')">
                                 <i class="far fa-trash-alt" title="Delete"></i>
-
+                            {% endif %}
                                 <!-- <button onclick="myFunction()">SUBMIT</button> -->
 
                                
