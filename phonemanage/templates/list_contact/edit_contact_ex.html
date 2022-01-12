@@ -1,0 +1,63 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block extend_css %} 
+
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content_dashboard %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Sua danh bạ điện thoại</h6>
+  
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{% url 'edit_contact_ex' pk=contact.id %}"
+    class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+          <div class="form-group row">
+            <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên Đơn vị</label>
+            <select class="col-sm-10 form-control" id="dept" name="dept">
+              <option value="" selected>Chọn Đơn vị</option>
+              {% for DepartmentInfoEx in dept_all %}
+                  <option value="{{DepartmentInfo.id}}">{{DepartmentInfoEx.dept_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group row">
+            <label for="validationTooltip03" class="col-sm-2 col-form-label">Số điện thoại</label>
+            <input type="number" class="col-sm-10 form-control" id="validationTooltip03" name= "sodienthoai" value="{{contact.phone_number}}" required>
+          </div>
+          <div class="form-group row">
+            <label for="validationTooltip04" class="col-sm-2 col-form-label">Email</label>
+            <input type="number" class="col-sm-10 form-control" id="validationTooltip04" name= "sofax"  value="{{contact.fax_number}}" required>
+          </div>
+        <button class="btn btn-primary" type="submit">Sửa</button>
+    </form>
+  </div>
+</div>
+  {% endblock %}
+{% load static %}
+{% block extend_js %} 
+<script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+{% endblock %}
+
+
+
+
+
+

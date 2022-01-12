@@ -21,31 +21,15 @@
     <h6 class="m-0 font-weight-bold text-primary">Thêm danh bạ điện thoại</h6>   
   </div>
   <div class="card-body">
-    <form method="POST" action="{% url 'create_contact' %}"
+    <form method="POST" action="{% url 'create_contact_ex' %}"
     class="needs-validation" novalidate>
-        {% csrf_token %}
-        <div class="form-group row">
-          <label for="validationTooltip01" class="col-sm-2 col-form-label">Mã nhân sự</label>
-          <input type="text" class="col-sm-10 form-control" name= "manhansu" id="validationTooltip01" placeholder="ID Employer" required>
-        </div>
+        {% csrf_token %}        
           <div class="form-group row">
-            <label for="validationTooltip01" class="col-sm-2 col-form-label">Họ và tên</label>
-            <input type="text" class="col-sm-10 form-control" name= "hovaten" id="validationTooltip01" placeholder="Your name" required>
-          </div>
-          <div class="form-group row">
-            <label for="validationTooltip01" class="col-sm-2 col-form-label">Ngày/tháng/năm sinh</label>
-            <input type="text" class="col-sm-10 form-control" name= "ngaysinh" id="validationTooltip01" placeholder="Date of birth" required>
-          </div>
-          <div class="form-group row">
-            <label for="validationTooltip02" class="col-sm-2 col-form-label">Chức danh</label>
-            <input type="text" class="col-sm-10 form-control" name= "chucdanh" id="validationTooltip02" placeholder="Position" required>
-          </div>
-          <div class="form-group row">
-            <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên phòng ban</label>
+            <label for="validationTooltipUsername" class="col-sm-2 col-form-label">Tên Đơn vị</label>
             <select class="col-sm-10 form-control" id="dept" name="dept">
-              <option value="" selected>Chọn Phòng ban</option>
-              {% for DepartmentInfo in dept_all %}
-                  <option value="{{DepartmentInfo.id}}">{{DepartmentInfo.dept_name}}</option>
+              <option value="" selected>Chọn Đơn vị</option>
+              {% for DepartmentInfoEx in dept_all %}
+                  <option value="{{DepartmentInfo_ex.id}}">{{DepartmentInfoEx.dept_name}}</option>
               {% endfor %}
           </select>
           </div>
@@ -54,8 +38,8 @@
             <input type="number" class="col-sm-10 form-control" id="validationTooltip03" name= "sodienthoai" placeholder="Phone number" required>
           </div>
           <div class="form-group row">
-            <label for="validationTooltip04" class="col-sm-2 col-form-label">Email</label>
-            <input type="email" class="col-sm-10 form-control" id="validationTooltip04" name= "Email"  placeholder="Email" required>
+            <label for="validationTooltip04" class="col-sm-2 col-form-label">Số Fax</label>
+            <input type="number" class="col-sm-10 form-control" id="validationTooltip04" name= "sofax"  placeholder="Fax" required>
           </div>
         <button class="btn btn-primary" type="submit"><i class="fas fa-plus fa-sm text-white-50"></i> Thêm mới</button>
     </form>
