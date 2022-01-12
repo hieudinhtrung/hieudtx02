@@ -1,0 +1,113 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block extend_css %} 
+
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content_dashboard %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh bạ điện thoại</h6>       
+    </div>
+ 
+    <div class="card-body">
+        <div class="d-sm-flex align-items-center justify-content-end mb-4">
+            <!-- <h1 class="h3 mb-0 text-gray-800"></h1> -->
+            {% if perms.phonemanage.can_add_PhoneInfoEx %}
+            <a href="{% url 'create_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="margin-right: 85.2rem;">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Thêm mới</a>
+            <a href="{% url 'import_contact' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-upload fa-sm text-white-50"></i> Import</a>
+            {% endif %}
+        </div>
+
+        <form action="{% url 'listcontact_ex' %}">
+            <div class="form-group row">                    
+                    <label for="validationTooltip03" class="col-sm-1 col-form-label">Phòng ban</label>
+                    <select class="col-sm-2 form-control" id="dept" name="dept">
+                        <option value="" selected>Chọn Phòng ban</option>
+                        {% for DepartmentInfoEx in dept_all %}
+                            <option value="{{DepartmentInfo.id}}">{{DepartmentInfoEx.dept_name}}</option>
+                        {% endfor %}
+                    </select>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0rem;"><i class="fas fa-search fa-sm text-white-50"></i> Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân sự</th>
+                        <th>Họ và tên</th>
+                        <th>Ngày tháng năm sinh</th>
+                        <th>Chức danh</th>
+                        <th>Phòng ban</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+               {% for PhoneInfo in phonenumber %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>  
+                        <td>{{PhoneInfoEx.department.dept_name}}</td>
+                        <td>{{PhoneInfoEx.phone_number}}</td>
+                        <td>{{PhoneInfoEx.fax_number}}</td>
+                        <td>                         
+                            <a href="{% url 'show_contact_ex' pk=PhoneInfoEx.id %}">
+                                <i class="far fa-eye" title="Show"></i>
+                            </a>
+                            {% if perms.phonemanage.can_change_PhoneInfo %}
+                            <a href="{% url 'edit_contact_ex' pk=PhoneInfoEx.id %}">
+                                <i class="far fa-edit" title="Edit"></i>
+                            </a>
+                            {% endif %}
+                            {% if perms.phonemanage.can_delete_PhoneInfoEx %}
+                            <a href="{% url 'delete_contact_ex' pk=PhoneInfoEx.id %}">
+                                <i onclick="return confirm('Are you sure to delete?')">
+                                <i class="far fa-trash-alt" title="Delete"></i>
+                            {% endif %}
+   
+
+                               
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <tr>No phone entries</tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% load static %}
+{% block extend_js %} 
+<script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+
+{% endblock %}

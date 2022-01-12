@@ -55,7 +55,6 @@ def create_contact (request):
     elif request.method == "POST":
        
         data = request.POST
-
         name = data.get("hovaten","")
         identity = data.get("manhansu","")
         dateofbirth = data.get("ngaysinh","")
@@ -148,3 +147,99 @@ def impo(request):
             phonenumber.save()
 
         return render(request, "list_contact/import.html", {"excel_data": excel_data[1:]})
+
+def listcontact_ex(request, method="GET"):
+    dept_all = DepartmentInfoEx.objects.all()
+    query_params = request.GET
+    phonenumber = PhoneInfoEx.objects.all()
+    dept_fil = query_params.get("dept", None)
+    if dept_fil is not None and dept_fil:
+        phonenumber = phonenumber.filter(department_id=dept_fil)
+    
+    return render(request, "list_contact/listcontact_ex.html", {"phonenumber": phonenumber, "dept_all":dept_all})
+
+
+def create_contact_ex(request):
+    if request.method == "GET":
+        dept_all = DepartmentInfoEx.objects.all()
+        return render(request,"list_contact/create_contact_ex.html", {"dept_all":dept_all})
+    elif request.method == "POST":
+       
+        data = request.POST
+        department = data.get("dept","")
+        phonenumber = data.get("sodienthoai","")
+        faxnumber = data.get("sofax","")
+        phonenumber=PhoneInfoEx(department_id=department,phone_number= phonenumber,fax_number=faxnumber)
+        phonenumber.save()
+        return redirect('listcontact_ex')
+
+      
+def edit_contact_ex(request, pk):
+    contact = get_object_or_404(PhoneInfoEx, pk=pk)
+    dept_all = DepartmentInfoEx.objects.all()
+    if request.method == "POST":
+        data = request.POST
+        contact.department.dept_name = data.get("dept","")
+        contact.phone_number = data.get("sodienthoai","")
+        contact.fax_number = data.get("sofax","")
+        contact.save()
+
+        return redirect('listcontact_ex')
+
+    context = {"contact": model_to_dict(contact), "dept_all":dept_all}
+    return render(request, "list_contact/edit_contact_ex.html", context=context)
+
+
+def show_contact_ex(request, pk):
+    contact = get_object_or_404(PhoneInfoEx, pk=pk)
+    context = {"contact": contact}
+    return render(request, "list_contact/show_contact_ex.html", context=context)
+
+
+def delete_contact_ex(request, pk):
+    contact = get_object_or_404(PhoneInfoEx,pk=pk)
+    contact.delete()       
+
+    messages.success(request, "Delete contact successful")
+  
+    return redirect('listcontact_ex')
+
+
+def impo_ex(request):
+    if "GET" == request.method:
+        return render(request, 'list_contact/import_ex.html', {})
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+        print(worksheet)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+
+        list_headers = excel_data[0]
+        index_headers = { j: i for i, j in enumerate(list_headers)}
+        for item in excel_data[1:]:
+            department_name = item[index_headers['Department']]
+            department = DepartmentInfoEx.objects.filter(dept_name=department_name).first()
+            department_id = None
+
+            if department is not None:
+                department_id = department.id
+            phone_number=item[index_headers['Phonenumber']]
+            fax_number=item[index_headers['Faxnumber']]
+            phonenumber=PhoneInfoEx(department_id=department_id, phone_number= phone_number, fax_number= fax_number)
+            phonenumber.save()
+
+        return render(request, "list_contact_ex/import_ex.html", {"excel_data": excel_data[1:]})

@@ -74,17 +74,12 @@ class PhoneInfo(models.Model):
 class DepartmentInfo(models.Model):
     dept_name = models.CharField(max_length=100)
 
-class PhoneInfo_Ex(models.Model):
-    fullname = models.CharField(max_length=100)
-    email = models.EmailField()
-    department = models.ForeignKey("DepartmentInfo", on_delete = models.PROTECT)
-    position = models.CharField(max_length=100)
+class PhoneInfoEx(models.Model):
+    department = models.ForeignKey("DepartmentInfoEx", on_delete = models.PROTECT)
     phone_number = models.CharField(max_length=20)
-    code = models.CharField(max_length=10)
-    date_of_birth = models.DateField()
-    identity = models.CharField(max_length=20)
+    fax_number = models.CharField(max_length=20)
 
-class DepartmentInfo_Ex(models.Model):
+class DepartmentInfoEx(models.Model):
     dept_name = models.CharField(max_length=100)
 
 
