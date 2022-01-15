@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required,permission_required
 from django.forms.models import model_to_dict
-from .models import PhoneInfo, DepartmentInfo
+from .models import PhoneInfo, DepartmentInfo, DepartmentInfoEx, PhoneInfoEx
 from django.shortcuts import render
 import openpyxl
 

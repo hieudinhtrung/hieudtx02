@@ -37,8 +37,8 @@
                     <label for="validationTooltip03" class="col-sm-1 col-form-label">Phòng ban</label>
                     <select class="col-sm-2 form-control" id="dept" name="dept">
                         <option value="" selected>Chọn Phòng ban</option>
-                        {% for DepartmentInfoEx in dept_all %}
-                            <option value="{{DepartmentInfo.id}}">{{DepartmentInfoEx.dept_name}}</option>
+                        {% for depart in dept_all %}
+                            <option value="{{depart.id}}">{{depart.dept_name}}</option>
                         {% endfor %}
                     </select>
                 <div class="form-group col-md-3">
@@ -65,23 +65,23 @@
                 <tbody>
 
 
-               {% for PhoneInfo in phonenumber %}
+               {% for phone_info_ex in phonenumber %}
                     <tr>
                         <td>{{forloop.counter}}</td>  
-                        <td>{{PhoneInfoEx.department.dept_name}}</td>
-                        <td>{{PhoneInfoEx.phone_number}}</td>
-                        <td>{{PhoneInfoEx.fax_number}}</td>
+                        <td>{{phone_info_ex.department.dept_name}}</td>
+                        <td>{{phone_info_ex.phone_number}}</td>
+                        <td>{{phone_info_ex.fax_number}}</td>
                         <td>                         
-                            <a href="{% url 'show_contact_ex' pk=PhoneInfoEx.id %}">
+                            <a href="{% url 'show_contact_ex' pk=phone_info_ex.id %}">
                                 <i class="far fa-eye" title="Show"></i>
                             </a>
                             {% if perms.phonemanage.can_change_PhoneInfo %}
-                            <a href="{% url 'edit_contact_ex' pk=PhoneInfoEx.id %}">
+                            <a href="{% url 'edit_contact_ex' pk=phone_info_ex.id %}">
                                 <i class="far fa-edit" title="Edit"></i>
                             </a>
                             {% endif %}
                             {% if perms.phonemanage.can_delete_PhoneInfoEx %}
-                            <a href="{% url 'delete_contact_ex' pk=PhoneInfoEx.id %}">
+                            <a href="{% url 'delete_contact_ex' pk=phone_info_ex.id %}">
                                 <i onclick="return confirm('Are you sure to delete?')">
                                 <i class="far fa-trash-alt" title="Delete"></i>
                             {% endif %}
